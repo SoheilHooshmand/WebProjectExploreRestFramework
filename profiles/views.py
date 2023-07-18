@@ -18,7 +18,7 @@ class ProfileList(APIView):
         if done :
             return result
         else :
-            serializer = ProfileSerializer(profiles, many = False)
+            serializer = ProfileSerializer(profiles, many = True)
             return Response(serializer.data)
 
     def post(self, request, format = None):
