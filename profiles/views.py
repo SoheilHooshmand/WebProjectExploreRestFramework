@@ -62,7 +62,7 @@ class ProfileDetails(APIView):
         return Response(status = status.HTTP_204_NO_CONTENT)
 
     def get_permissions(self):
-        if self.request.method == "PUT" and self.request.method == "DELETE":
+        if self.request.method == "PUT" or self.request.method == "DELETE":
             return [IsAuthenticated()]
         else:
             return [AllowAny()]
