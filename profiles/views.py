@@ -178,7 +178,7 @@ class MessageDetails(APIView):
             return Response(status = status.HTTP_204_NO_CONTENT)
 
     def get_permissions(self):
-        if self.request.method == 'GET' and "DELETE" :
+        if self.request.method == 'GET' or "DELETE" :
             return [IsAuthenticated()]
         else :
             return [AllowAny]
