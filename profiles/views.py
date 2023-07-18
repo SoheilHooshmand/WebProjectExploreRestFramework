@@ -144,7 +144,7 @@ class MessageList(APIView):
         return Response(status = status.HTTP_400_BAD_REQUEST)
 
     def get_permissions(self):
-        if self.request.method == "GET" and self.request.method == "POST":
+        if self.request.method == "GET" or self.request.method == "POST":
             return [IsAuthenticated()]
         else :
             return [AllowAny()]
