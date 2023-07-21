@@ -181,7 +181,7 @@ class MessageDetails(APIView):
         if self.request.method == 'GET' or "DELETE" :
             return [IsAuthenticated()]
         else :
-            return [AllowAny]
+            return [AllowAny()]
 
 
 
