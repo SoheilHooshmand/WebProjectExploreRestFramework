@@ -32,9 +32,16 @@ class ProjectList(APIView):
         project.description = data['description']
         project.demo_link = data['demo_link']
         project.source_link = data['source_link']
-        tags = data['tags']
-        project.tags.set(tags)
-        project.save()
+       tags_data = data['tags']
+        for tag_data in tags_data:
+            tag_name = tag_data['name']
+            tag_id = tag_data["id"]
+            tag, created = Tag.objects.get_or_create(
+                name = tag_name,
+                id = tag_id
+            )
+            project.tags.add(tag)
+            project.save()
         serializer = ProjectSerilaizer(project)
         return Response(serializer.data)
 
