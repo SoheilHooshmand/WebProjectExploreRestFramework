@@ -19,7 +19,7 @@ class ProjectList(APIView):
             return result
         else:
             serializer = ProjectSerilaizer(projects, many = True)
-            return Response(serializer.data)
+            return Response(serializer.data, status = status.HTTP_200_OK)
 
     def post(self, request, format = None) :
         profile = request.user.profile
@@ -43,7 +43,7 @@ class ProjectList(APIView):
             project.tags.add(tag)
             project.save()
         serializer = ProjectSerilaizer(project)
-        return Response(serializer.data)
+        return Response(serializer.data, status = status.HTTP_201_CREATED)
 
     def get_permissions(self):
         if self.request.method == "POST":
@@ -64,17 +64,20 @@ class PorjectDetails(APIView):
     def get(self, request, pk, format = None):
         project = self.get_project(pk)
         serializer = ProjectSerilaizer(project, many = False)
-        return Response(serializer.data)
+        return Response(serializer.data, status = status.HTTP_200_OK)
 
     def put(self, request, pk, format = None):
        profile = request.user.profile
        project = self.get_project(pk)
-       serializer = ProjectSerilaizer(project, data = request.data)
-       serializer.owner = project.owner
-       if serializer.is_valid() and profile == project.owner:
-           serializer.save()
-           return Response(serializer.data)
-       return Response(status = status.HTTP_400_BAD_REQUEST)
+       if profile == project.owner:
+           serializer = ProjectSerilaizer(project, data = request.data)
+           serializer.owner = project.owner
+           if serializer.is_valid():
+               serializer.save()
+               return Response(serializer.data, status = status.HTTP_200_OK)
+           return Response(status = status.HTTP_400_BAD_REQUEST)
+       else:
+           return Response(status = status.HTTP_400_BAD_REQUEST)
 
 
     def delete(self, request, pk, format = None):
