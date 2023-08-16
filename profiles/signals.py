@@ -23,7 +23,7 @@ def deleteUser(sender, instance, **kwargs):
 def updateUser(sender, instance, created, **kwargs):
     profile = instance
     user = profile.user
-    if created == False:
+    if created == False and user is not None:
         user.first_name = profile.name
         user.username = profile.username
         user.email = profile.email
