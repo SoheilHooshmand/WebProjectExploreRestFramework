@@ -23,9 +23,7 @@ class MessageSerializer(serializers.ModelSerializer):
 
 
 class ProfileSerializer(serializers.ModelSerializer):
-    #user = UserSerializer(many = False)
     skills = serializers.SerializerMethodField()
-    #messages = serializers.SerializerMethodField()
 
     class Meta:
         model = Profile
@@ -35,9 +33,4 @@ class ProfileSerializer(serializers.ModelSerializer):
         skills = obj.skill_set.all()
         serializer = SkillSerializer(skills, many = True)
         return serializer.data
-
-    # def get_messages(self, obj):
-    #     messages = obj.messages.all()
-    #     serializer = MessageSerializer(messages, many = True)
-    #     return serializer.data
 
