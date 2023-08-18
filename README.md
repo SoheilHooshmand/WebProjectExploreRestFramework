@@ -2,7 +2,7 @@
 
 # Features
 * Share project
-* Messagew other users
+* Message other users
 * Rate other works
 * Search other users and prjects
 
