@@ -2,3 +2,4 @@ python
 django
 django-rest-framework
 django-rest-framework-simplejwt
+mysqlclient
